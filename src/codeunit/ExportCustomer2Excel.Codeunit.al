@@ -24,7 +24,7 @@ codeunit 70100 "Export Customer 2 Excel"
         CreateAndFillExcelBuffer(TempExcelBuf);
 
         if Choice = 1 then
-            TempExcelBuf.OpenExcelFile(BookNameTxt)
+            DownloadAndOpenExcel(TempExcelBuf)
         else
             TempExcelBuf.EmailExcelFile(BookNameTxt);
     end;
@@ -60,5 +60,11 @@ codeunit 70100 "Export Customer 2 Excel"
             TempExcelBuf.AddColumn(City, false, '', false, false, false, '', TempExcelBuf."Cell Type"::Text);
             TempExcelBuf.AddColumn("Country/Region Code", false, '', false, false, false, '', TempExcelBuf."Cell Type"::Text);
         end;
+    end;
+
+    local procedure DownloadAndOpenExcel(var TempExcelBuf: Record "Excel Buffer" temporary)
+    begin
+        TempExcelBuf.SetFriendlyFilename(BookNameTxt);
+        TempExcelBuf.OpenExcel();
     end;
 }

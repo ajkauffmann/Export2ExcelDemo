@@ -27,7 +27,7 @@ codeunit 70101 "Export Sales Order 2 Excel"
         CreateAndFillExcelBuffer(TempExcelBuf, SalesHeader);
 
         if Choice = 1 then
-            TempExcelBuf.OpenExcelFile(BookNameTxt)
+            DownloadAndOpenExcel(TempExcelBuf)
         else
             TempExcelBuf.EmailExcelFile(BookNameTxt);
     end;
@@ -100,5 +100,10 @@ codeunit 70101 "Export Sales Order 2 Excel"
                 TempExcelBuf.EnterCell(TempExcelBuf, NextRowNo, 8, SalesLine."Line Amount", false, false, false);
                 NextRowNo += 1;
             until SalesLine.Next() = 0;
+    end;
+    local procedure DownloadAndOpenExcel(var TempExcelBuf: Record "Excel Buffer" temporary)
+    begin
+        TempExcelBuf.SetFriendlyFilename(BookNameTxt);
+        TempExcelBuf.OpenExcel();
     end;
 }
