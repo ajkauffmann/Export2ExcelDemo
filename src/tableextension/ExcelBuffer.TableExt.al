@@ -6,4 +6,13 @@ tableextension 70100 "Excel Buffer Ext" extends "Excel Buffer"
     begin
         EmailExcelFileImpl.CreateAndSendEmail(Rec, BookName);
     end;
+
+    procedure GetCurrentRow(var MyCurrentRow: Integer)
+    var
+        MyCurrentRowVariant: Variant;
+    begin
+        UTgetGlobalValue('CurrentRow', MyCurrentRowVariant);
+        if MyCurrentRowVariant.IsInteger() then
+            MyCurrentRow := MyCurrentRowVariant;
+    end;
 }
